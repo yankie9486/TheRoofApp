@@ -1,8 +1,8 @@
 <template>
   <div class=" min-h-screen h-full grid grid-rows-layout grid-cols-layout">
     <header class=" col-span-3 row-span-1 bg-green-700">
-      <div class="flex justify-center items-center px-4">
-        <div class=" w-1/5">
+      <div class="flex justify-center items-center px-4 h-full">
+        <div class="flex items-center w-1/5">
           <h2>Logo</h2>
         </div>
         <div class=" w-3/5">
@@ -27,7 +27,7 @@
         </li>
       </ul>
     </aside>
-    <main class="col-span-1">
+    <main class="col-span-1 pl-4 pt-4">
       <Nuxt />
     </main>
     <aside class="col-span-1 row-span-1 bg-gray-400 px-4 pt-2">
@@ -35,7 +35,7 @@
         Properties
       </h3>
     </aside>
-    <footer class=" col-span-3">
+    <footer class=" col-span-3 flex justify-center items-center">
       Copyright Cunis Inc
     </footer>
   </div>
