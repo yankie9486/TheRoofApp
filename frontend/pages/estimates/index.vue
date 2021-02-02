@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="container mr-auto ml-auto py-8">
     <div class="w-full flex">
       <h1 class="text-3xl text-gray-700 font-bold font-sans mt-4 mb-8">
@@ -11,7 +11,7 @@
           <input
             v-model="width"
             type="number"
-            class="border-2 border-gray-300 py-2 px-4"
+            class="   "
             placeholder="Width"
           >
           <input v-model="lenght" type="number" placeholder="Lenght">
@@ -130,6 +130,14 @@ export default {
 <style lang="scss">
 input,
 button {
-	@apply border-2 border-gray-300 py-2 px-4;
+	@apply border border-gray-400   py-2 px-4 ;
+}
+
+fieldset {
+  @apply p-4 bg-gray-300 rounded-md border-gray-400 border;
+}
+
+legend {
+  @apply text-xl text-gray-700;
 }
 </style>
