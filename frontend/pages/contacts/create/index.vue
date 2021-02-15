@@ -122,20 +122,25 @@ export default {
         mname: this.mname,
         lname: this.lname,
         company: this.company,
-        phone: this.phone,
-        cell: this.cell,
-        email: this.email,
-        address: this.address,
-        address2: this.address2,
-        city: this.city,
-        state: this.state,
-        zip: this.zip
+        contact: {
+          phone: this.phone,
+          cell: this.cell,
+          email: this.email
+        },
+        address: {
+          address: this.address,
+          address2: this.address2,
+          city: this.city,
+          state: this.state,
+          zip: this.zip
+        }
       }
 
       fetch('http://localhost:8020/api/contacts', {
         method: 'POST',
         body: JSON.stringify(customer)
       }).then(function (rep) {
+        console.log(rep)
         return rep.json()
       }).then(function (data) {
         console.log(data)

@@ -16,6 +16,11 @@
     <aside class="col-span-1 row-span-1 bg-gray-800 px-4 pt-2">
       <ul class="text-gray-300 m-0">
         <li class="py-2 text-center border-b border-gray-700">
+          <nuxt-link to="contacts">
+            Contacts</a>
+          </nuxt-link>
+        </li>
+        <li class="py-2 text-center border-b border-gray-700">
           <nuxt-link to="estimates">
             Estimate</a>
           </nuxt-link>

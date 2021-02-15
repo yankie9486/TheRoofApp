@@ -48,14 +48,20 @@ type Area struct {
 	Total  float64 `json:"total"`
 }
 
-//RoofType combine the Area and roof covering
-type RoofType struct {
-	ID           int64    `json:"id"`
-	AreaList     []Area   `json:"areas"`
-	RoofCovering []string `json:"roofCoverings"`
+//RoofCovering is type of roof top product ex. Shingle, Tile, Flat
+type RoofCovering struct {
+	ID   int64
+	Name string
 }
 
-//Product
+//RoofType combine the Area and roof covering
+type RoofType struct {
+	ID           int64        `json:"id"`
+	AreaList     []Area       `json:"areas"`
+	RoofCovering RoofCovering `json:"roofCovering"`
+}
+
+//Product struct for estimates
 type Product struct {
 	ID          int64   `json:"id"`
 	Name        string  `json:"name"`
@@ -81,6 +87,40 @@ type Estimate struct {
 	RoofType   []RoofType `json:"rooftypes"`
 }
 
+func getContacts(w http.ResponseWriter, r *http.Request) {
+
+	var customerList []Customer
+
+	customerList[] = Customer{
+		FirstName:  "Giancarlo",
+		MiddleName: "",
+		LastName:   "Cunis",
+		Company:    "Cunis Inc",
+	}
+	customerList[1] = Customer{
+		FirstName:  "Giana",
+		MiddleName: "",
+		LastName:   "Cunis",
+		Company:    "Cunis Inc",
+	}
+	customerList[2] = Customer{
+		FirstName:  "GianLucca",
+		MiddleName: "",
+		LastName:   "Cunis",
+		Company:    "Cunis Inc",
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(customerList); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+}
+
 func createContact(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
@@ -94,7 +134,8 @@ func createContact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(newCustomer); err != nil {
-		panic(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 }
@@ -135,46 +176,29 @@ func estimate(w http.ResponseWriter, request *http.Request) {
 	// }
 }
 
-func createEstimate(w http.ResponseWriter, request *http.Request) {
+func createEstimate(w http.ResponseWriter, r *http.Request) {
 
-	urlParms := mux.Vars(request)
-	estimateParms := urlParms["estimate"]
+	decoder := json.NewDecoder(r.Body)
 
-	// customer := Customer{}
-	// jobAddress := Address{}
-	// roofType := []RoofType{}
+	var newEstimate Estimate
 
-	// estimate := Estimate{
-	// 	Customer:   customer,
-	// 	JobAddress: jobAddress,
-	// 	RoofType:   roofType,
-	// }
+	decoder.Decode(&newEstimate)
 
-	output, err := json.Marshal(estimateParms)
-	if err != nil {
-		fmt.Println("Something went wrong!")
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(newEstimate); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
-
-	fmt.Fprintf(w, string(output))
-
-	// decoder := json.NewDecoder(request.Body)
-
-	// var estimate Estimate
-
-	// decoder.Decode(&estimate)
-
-	// w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	// w.Header().Set("Access-Control-Allow-Origin", "*")
-	// w.WriteHeader(http.StatusOK)
-	// if err := json.NewEncoder(w).Encode(estimate); err != nil {
-	// 	panic(err)
-	// }
 }
 
 func main() {
 	routes := mux.NewRouter()
 	routes.HandleFunc("/api/estimates", estimate).Methods("GET")
 	routes.HandleFunc("/api/estimates", createEstimate).Methods("POST")
+	routes.HandleFunc("/api/contacts", getContacts).Methods("GET")
 	routes.HandleFunc("/api/contacts", createContact).Methods("POST")
 	http.Handle("/", routes)
 	log.Fatal(http.ListenAndServe(":8020", routes))
