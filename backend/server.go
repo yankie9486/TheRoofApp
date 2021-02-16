@@ -91,24 +91,34 @@ func getContacts(w http.ResponseWriter, r *http.Request) {
 
 	var customerList []Customer
 
-	customerList[] = Customer{
+	customerList1 := Customer{
+		ID:         1,
 		FirstName:  "Giancarlo",
 		MiddleName: "",
 		LastName:   "Cunis",
 		Company:    "Cunis Inc",
 	}
-	customerList[1] = Customer{
+
+	customerList = append(customerList, customerList1)
+
+	customerList2 := Customer{
+		ID:         2,
 		FirstName:  "Giana",
 		MiddleName: "",
 		LastName:   "Cunis",
 		Company:    "Cunis Inc",
 	}
-	customerList[2] = Customer{
+
+	customerList = append(customerList, customerList2)
+
+	customerList3 := Customer{
+		ID:         3,
 		FirstName:  "GianLucca",
 		MiddleName: "",
 		LastName:   "Cunis",
 		Company:    "Cunis Inc",
 	}
+	customerList = append(customerList, customerList3)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")

@@ -3,21 +3,18 @@
     <div class="w-full flex">
       <table>
         <thead>
-          <tr>
-            <th>
-              First Name
-            </th>
-          </tr>
-          <tr>
-            <th>
-              Middle Name
-            </th>
-          </tr>
-          <tr>
-            <th>
-              Company
-            </th>
-          </tr>
+          <th>
+            First Name
+          </th>
+
+          <th>
+            Middle Name
+          </th>
+
+          <th>
+            Company
+          </th>
+          <th />
         </thead>
         <tbody>
           <tr v-for="contact in contactList" :key="contact.id">
@@ -32,6 +29,9 @@
             </td>
             <td>
               {{ contact.company }}
+            </td>
+            <td>
+              {{ contact.customerId }}
             </td>
           </tr>
         </tbody>
