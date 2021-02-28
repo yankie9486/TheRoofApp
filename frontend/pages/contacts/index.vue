@@ -14,10 +14,15 @@
           <th>
             Company
           </th>
-          <th />
+          <th>
+
+          </th>
         </thead>
         <tbody>
-          <tr v-for="contact in contactList" :key="contact.id">
+          <tr
+          v-for="contact in contactList"
+          :key="contact.id"
+          @click="contactView" >
             <td>
               {{ contact.fname }}
             </td>
@@ -31,6 +36,7 @@
               {{ contact.company }}
             </td>
             <td>
+
               {{ contact.customerId }}
             </td>
           </tr>
@@ -50,6 +56,11 @@ export default {
   data () {
     return {
       contactList: []
+
+    }
+  },
+  methods:{
+    contactView() {
 
     }
   }

@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -89,6 +89,10 @@ type Estimate struct {
 
 func getContacts(w http.ResponseWriter, r *http.Request) {
 
+	// keys, ok :=
+
+	// decoder := json.NewDecoder(r.Body)
+
 	var customerList []Customer
 
 	customerList1 := Customer{
@@ -129,6 +133,12 @@ func getContacts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func getContactByID(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "ID: %v\n", vars["id"])
 }
 
 func createContact(w http.ResponseWriter, r *http.Request) {
@@ -209,7 +219,13 @@ func main() {
 	routes.HandleFunc("/api/estimates", estimate).Methods("GET")
 	routes.HandleFunc("/api/estimates", createEstimate).Methods("POST")
 	routes.HandleFunc("/api/contacts", getContacts).Methods("GET")
+	routes.HandleFunc("/api/contacts/{id:[0-9]+}", getContactByID).Methods("GET")
 	routes.HandleFunc("/api/contacts", createContact).Methods("POST")
 	http.Handle("/", routes)
-	log.Fatal(http.ListenAndServe(":8020", routes))
+
+	err := http.ListenAndServe(":8020", routes)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
