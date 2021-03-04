@@ -101,26 +101,21 @@ export default {
   validate ({ params, error }) {
     return !isNaN(+params.id)
   },
-  async asyncData({params, error}) {
+  // async asyncData ({ params, error }) {
+  //   return new Promise((resolve, reject) => {
 
-      return new Promise((resolve, reject) =>{
+  //   }).catch((e) => {
+  //     error(new Error())
+  //   })
 
-      }).catch(e => {
-          error(new Error())
-      })
-
-
-
-     fetch(`http://localhost:8020/api/contacts/${params.id}`)
-        .then(function (rep) {
-          console.log(rep)
-          return rep.json()
-        }).then(function (data) {
-          console.log(data)
-        })
-
-
-  },
+  //   fetch(`http://localhost:8020/api/contacts/${params.id}`)
+  //     .then(function (rep) {
+  //       console.log(rep)
+  //       return rep.json()
+  //     }).then(function (data) {
+  //       console.log(data)
+  //     })
+  // },
   data () {
     return {
       fname: '',
@@ -139,16 +134,15 @@ export default {
     }
   },
   methods: {
-    updateContact () {
-
-      fetch(`http://localhost:8020/api/contacts/${+params.id}`)
-        .then(function (rep) {
-          console.log(rep)
-          return rep.json()
-        }).then(function (data) {
-          console.log(data)
-        })
-    }
+    // updateContact () {
+    //   fetch(`http://localhost:8020/api/contacts/${+params.id}`)
+    //     .then(function (rep) {
+    //       console.log(rep)
+    //       return rep.json()
+    //     }).then(function (data) {
+    //       console.log(data)
+    //     })
+    // }
   }
 }
 </script>
