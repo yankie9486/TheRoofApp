@@ -3,7 +3,7 @@ package estimate
 import (
 	"errors"
 
-	"github.com/asdine/storm"
+	storm "github.com/asdine/storm/v3"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -84,6 +84,7 @@ func One(id bson.ObjectId) (*Estimate, error) {
 	return e, nil
 }
 
+//Delete estimate by id
 func Delete(id bson.ObjectId) error {
 	db, err := storm.Open(dbPath)
 	if err != nil {

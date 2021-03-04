@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"./handlers"
+	"github.com/yankie9486/TheRoofApp/backend/handlers"
 )
 
 func main() {

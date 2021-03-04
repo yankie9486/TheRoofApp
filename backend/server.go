@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -214,18 +213,18 @@ func createEstimate(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func main() {
-	routes := mux.NewRouter()
-	routes.HandleFunc("/api/estimates", estimate).Methods("GET")
-	routes.HandleFunc("/api/estimates", createEstimate).Methods("POST")
-	routes.HandleFunc("/api/contacts", getContacts).Methods("GET")
-	routes.HandleFunc("/api/contacts/{id:[0-9]+}", getContactByID).Methods("GET")
-	routes.HandleFunc("/api/contacts", createContact).Methods("POST")
-	http.Handle("/", routes)
+// func main() {
+// 	routes := mux.NewRouter()
+// 	routes.HandleFunc("/api/estimates", estimate).Methods("GET")
+// 	routes.HandleFunc("/api/estimates", createEstimate).Methods("POST")
+// 	routes.HandleFunc("/api/contacts", getContacts).Methods("GET")
+// 	routes.HandleFunc("/api/contacts/{id:[0-9]+}", getContactByID).Methods("GET")
+// 	routes.HandleFunc("/api/contacts", createContact).Methods("POST")
+// 	http.Handle("/", routes)
 
-	err := http.ListenAndServe(":8020", routes)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
+// 	err := http.ListenAndServe(":8020", routes)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		os.Exit(1)
+// 	}
+// }
