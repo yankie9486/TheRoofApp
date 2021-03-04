@@ -17,6 +17,7 @@ func EstimatesRouter(w http.ResponseWriter, r *http.Request) {
 			estimatesGetAll(w, r)
 			return
 		case http.MethodPost:
+			estimatePostOne(w, r)
 			return
 		default:
 			postError(w, http.StatusMethodNotAllowed)
