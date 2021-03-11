@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 )
 
 type jsonRepsonse map[string]interface{}
@@ -26,4 +27,9 @@ func postBodyResponse(w http.ResponseWriter, code int, content jsonRepsonse) {
 	}
 	w.WriteHeader(code)
 	w.Write([]byte(http.StatusText(code)))
+}
+
+func postOptionsResponse(w http.ResponseWriter, methods []string, content jsonRepsonse) {
+	w.Header().Set("Allow", strings.Join(methods, ","))
+	postBodyResponse(w, http.StatusOK, content)
 }
